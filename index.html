@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Living Simple - a blog about mindful living, decluttering, and slow productivity.">
+    <title>Living Simple</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===== CSS ===== */
+        :root {
+            --primary: #2d6a4f;
+            --secondary: #e76f51;
+            --bg-light: #f8f9fa;
+            --text-dark: #2b2d42;
+            --text-light: #6c757d;
+            --white: #ffffff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .posts-section {
+            margin-bottom: 3rem;
+        }
+        .posts-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .post-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+        }
+        .post-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .post-card h3 {
+            padding: 1rem 1rem 0.5rem;
+            font-size: 1.25rem;
+        }
+        .post-card p {
+            padding: 0 1rem 1rem;
+            color: var(--text-light);
+        }
+        .read-more {
+            display: inline-block;
+            margin: 0 1rem 1rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .full-article {
+            margin: 4rem 0;
+            padding: 2rem 0;
+            border-top: 2px solid var(--primary);
+        }
+        .full-article h2 {
+            font-size: 2rem;
+        }
+        .article-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .full-article img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .full-article h3 {
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+        }
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .service-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+        .service-item i {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .contact-form, .comment-form {
+            max-width: 600px;
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact-form label, .comment-form label {
+            font-weight: 500;
+        }
+        .contact-form input, .contact-form textarea,
+        .comment-form input, .comment-form textarea {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .contact-form button, .comment-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .contact-form button:hover, .comment-form button:hover {
+            background-color: #1e4d36;
+        }
+        .map-container {
+            margin: 2rem 0;
+            width: 100%;
+            height: 300px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 8px;
+        }
+        .existing-comments {
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+        .comment {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        .comment strong {
+            color: var(--primary);
+        }
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 4rem;
+        }
+        .social-links {
+            margin-top: 0.5rem;
+        }
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="#">Living Simple</a></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#write">Write</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <h1>Welcome to Living Simple</h1>
+        <p>Discover the art of mindful living, decluttering, and slow productivity.</p>
+    </header>
+
+    <main>
+        <!-- Blog Posts Grid (dynamic) -->
+        <section class="posts-section">
+            <h2>Latest from the Blog</h2>
+            <div id="posts-grid" class="posts-grid">
+                <!-- Posts will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Full Article Container (hidden initially) -->
+        <div id="full-article-container" style="display: none;">
+            <!-- Article will be loaded here -->
+        </div>
+
+        <!-- About Section -->
+        <section id="about" class="page-content" style="margin: 4rem 0;">
+            <h1>About Living Simple</h1>
+            <p>Living Simple was born from a desire to step off the hamster wheel of consumerism and constant busyness. Our mission is to inspire you to live with less—less stress, less clutter, less distraction—and more of what truly brings joy and meaning.</p>
+            <p>Whether you're new to minimalism or a seasoned practitioner, you'll find practical tips, heartfelt stories, and a supportive community here.</p>
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format" alt="Team working" style="width:100%; max-width:600px; border-radius:8px; margin-top:20px;">
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="page-content" style="margin: 4rem 0;">
+            <h1>Our Services</h1>
+            <div class="services-list">
+                <div class="service-item">
+                    <i class="fas fa-leaf" style="font-size:2rem;"></i>
+                    <h3>Mindfulness Coaching</h3>
+                    <p>One-on-one sessions to help you cultivate presence and reduce stress.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-box-open" style="font-size:2rem;"></i>
+                    <h3>Decluttering Workshops</h3>
+                    <p>Group workshops (online or in-person) to clear your space and mind.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-calendar-alt" style="font-size:2rem;"></i>
+                    <h3>Slow Productivity Course</h3>
+                    <p>A self-paced course with tools and techniques to work smarter, not harder.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="page-content" style="margin: 4rem 0;">
+            <h1>Contact Us</h1>
+            <p>We’d love to hear from you! Drop us a message.</p>
+            <form class="contact-form">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-73.985107684584!3d40.75889697932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1617789673405!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <!-- Write (Interaction) Section -->
+        <section id="write" class="page-content interaction-page" style="margin: 4rem 0;">
+            <h1>Share Your Thoughts</h1>
+            <p>Leave a comment on our latest article: <strong id="current-article-title">10 Tips for Mindful Living</strong></p>
+            <form class="comment-form">
+                <input type="hidden" id="comment-post-id" value="1">
+                <label for="comment-name">Your Name</label>
+                <input type="text" id="comment-name" name="name" required>
+                <label for="comment-email">Your Email</label>
+                <input type="email" id="comment-email" name="email" required>
+                <label for="comment">Your Comment</label>
+                <textarea id="comment" name="comment" rows="5" placeholder="What do you think?" required></textarea>
+                <button type="submit">Post Comment</button>
+            </form>
+            <div id="comments-container" class="existing-comments">
+                <!-- Comments will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Living Simple. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // 🔁 CHANGE THIS TO YOUR LIVE BACKEND URL AFTER DEPLOYMENT
+        const API_URL = 'http://localhost:5000/api';
+        // Example: const API_URL = 'https://your-backend.onrender.com/api';
+
+        // Load all posts
+        async function loadPosts() {
+            try {
+                const response = await fetch(`${API_URL}/posts`);
+                const posts = await response.json();
+                
+                const postsGrid = document.getElementById('posts-grid');
+                postsGrid.innerHTML = posts.map(post => `
+                    <article class="post-card">
+                        <img src="${post.cover_image}" alt="${post.title}">
+                        <h3>${post.title}</h3>
+                        <p>${post.excerpt}</p>
+                        <a href="#" onclick="loadPost('${post.slug}', ${post.id}); return false;" class="read-more">Read More →</a>
+                    </article>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading posts:', error);
+            }
+        }
+
+        // Load single post by slug
+        async function loadPost(slug, postId) {
+            try {
+                const response = await fetch(`${API_URL}/posts/${slug}`);
+                const post = await response.json();
+                
+                const container = document.getElementById('full-article-container');
+                container.style.display = 'block';
+                container.innerHTML = `
+                    <section class="full-article">
+                        <h2>${post.title}</h2>
+                        <p class="article-meta">Published on ${new Date(post.published_at).toLocaleDateString()}</p>
+                        <img src="${post.cover_image}" alt="${post.title}" style="width:100%; max-width:800px; border-radius:8px; margin:20px 0;">
+                        ${post.content}
+                        <a href="#" onclick="document.getElementById('full-article-container').style.display='none'; return false;" class="back-to-top">Back to posts ↑</a>
+                    </section>
+                `;
+                
+                document.getElementById('comment-post-id').value = post.id;
+                document.getElementById('current-article-title').innerText = post.title;
+                loadComments(post.id);
+                container.scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error loading post:', error);
+            }
+        }
+
+        // Load comments for a post
+        async function loadComments(postId) {
+            try {
+                const response = await fetch(`${API_URL}/comments/post/${postId}`);
+                const comments = await response.json();
+                
+                const commentsContainer = document.getElementById('comments-container');
+                if (comments.length === 0) {
+                    commentsContainer.innerHTML = '<h3>Recent Comments</h3><p>No comments yet. Be the first to share your thoughts!</p>';
+                } else {
+                    commentsContainer.innerHTML = `
+                        <h3>Recent Comments</h3>
+                        ${comments.map(comment => `
+                            <div class="comment">
+                                <strong>${comment.author_name}</strong> <span>says:</span>
+                                <p>${comment.content}</p>
+                            </div>
+                        `).join('')}
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading comments:', error);
+            }
+        }
+
+        // Handle contact form submission
+        async function submitContactForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                message: form.message.value
+            };
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_URL}/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(result.message);
+                    form.reset();
+                } else {
+                    alert(result.error || 'Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                console.error('Contact error:', error);
+                alert('Network error. Please check your connection and try again.');
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Handle comment form submission
+        async function submitComment(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = {
+                post_id: document.getElementById('comment-post-id').value,
+                author_name: form.querySelector('#comment-name').value,
+                author_email: form.querySelector('#comment-email').value,
+                content: form.querySelector('#comment').value
+            };
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Posting...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_URL}/comments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Comment posted successfully!');
+                    form.reset();
+                    loadComments(formData.post_id);
+                } else {
+                    alert(result.error || 'Failed to post comment.');
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPosts();
+            
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) contactForm.addEventListener('submit', submitContactForm);
+            
+            const commentForm = document.querySelector('.comment-form');
+            if (commentForm) commentForm.addEventListener('submit', submitComment);
+            
+            loadComments(1);
+        });
+    </script>
+</body>
+</html>
